@@ -13,6 +13,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.resource.ResourceResolver;
+import org.springframework.web.util.UriUtils;
 import org.thymeleaf.templateresolver.AbstractConfigurableTemplateResolver;
 
 import javax.annotation.PostConstruct;
@@ -69,7 +70,7 @@ public class RevisionedWebResolver {
         RequestContext requestContext = RequestContext.getInstance(this);
         if(requestContext.repositoryContext != null) {
             File resourceDir = new File(requestContext.revisionDir, "static/");
-            File resourceFile = new File(resourceDir, requestContext.extractPath);
+            File resourceFile = new File(resourceDir, UriUtils.decode(requestContext.extractPath, "UTF-8"));
             return resourceFile;
         }
         return null;
