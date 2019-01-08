@@ -38,8 +38,6 @@ public class RevisionedWebResolver {
 
     @PostConstruct
     protected void init() {
-        // After create bean
-        System.out.println(repositories);
     }
 
     @ConditionalOnMissingClass(value = { "org.thymeleaf.ITemplateResolver" })

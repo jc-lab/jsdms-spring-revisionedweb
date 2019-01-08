@@ -23,7 +23,10 @@ public class RevisionedWebResourceResolver implements ResourceResolver {
     public Resource resolveResource(HttpServletRequest request, String requestPath, List<? extends Resource> locations, ResourceResolverChain chain) {
         File file = revisionedWebResolver.resolveResourceFile(requestPath);
         if(file != null) {
-            return new FileSystemResource(file);
+            if(file.exists() && file.isFile())
+                return new FileSystemResource(file);
+            else
+                return null;
         }
         return chain.resolveResource(request, requestPath, locations);
     }

@@ -18,6 +18,9 @@ public class RevisionedWebTemplateResolver extends FileTemplateResolver {
     @Override
     protected ITemplateResource computeTemplateResource(IEngineConfiguration configuration, String ownerTemplate, String template, String resourceName, String characterEncoding, Map<String, Object> templateResolutionAttributes) {
         File file = this.revisionedWebResolver.resolveTemplateFile(resourceName);
-        return super.computeTemplateResource(configuration, ownerTemplate, template, file.getAbsolutePath(), characterEncoding, templateResolutionAttributes);
+        if(file.exists() && file.isFile()) {
+            return super.computeTemplateResource(configuration, ownerTemplate, template, file.getAbsolutePath(), characterEncoding, templateResolutionAttributes);
+        }
+        return null;
     }
 }
